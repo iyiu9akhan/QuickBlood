@@ -64,7 +64,7 @@ function Login() {
             return 'bg-danger-soft border-danger-subtle text-fg-danger-strong focus:ring-danger focus:border-danger placeholder:text-fg-danger-strong';
         }
         if (status === 'success') {
-            return 'bg-success-soft border-success-subtle text-fg-success-strong focus:ring-success focus:border-success placeholder:text-fg-success-strong';
+            return 'bg-success-soft border-success-subtle text-fg-success-strong focus:ring-success focus:border-success placeholder:text-fg-success-strong ';
         }
         return 'bg-neutral-secondary-medium border-default-medium text-heading focus:ring-brand focus:border-brand placeholder:text-body';
     };
@@ -77,7 +77,17 @@ function Login() {
 
     return (
         <div className="loginWrapper flex w-full h-screen">
-            <div className="loginLeft w-2/3 border-r-2 border-gray-200 flex items-center justify-end">
+
+            <div className="loginLeft w-2/3 border-r-2 border-gray-200 flex items-center justify-between">
+                <div className='h-screen flex flex-col justify-between py-15 pl-15'>
+                    <p className='font-primary font-bold text-[65px] text-[#D12B05]'>QuickBlood</p>
+                    <div className='font-secondary capitalize text-[54px] font-bold text-brand'>
+                        <p>every donor </p>
+                        <p>saves lives ;</p>
+                        {/* <p> </p> */}
+                    </div>
+
+                </div>
                 <img src={login_img} alt="login_img" className='w-[900px]' />
             </div>
             <div className="loginRight w-1/3 flex flex-col px-13 justify-center">
@@ -94,7 +104,7 @@ function Login() {
                             id="email"
                             value={email}
                             onChange={handleEmailChange}
-                            className={`w-full text-sm rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getEmailStatus())}`}
+                            className={`w-full h-[55px] font-secondary rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getEmailStatus())}`}
                             placeholder="Email address"
                             required
                         />
@@ -123,7 +133,7 @@ function Login() {
                             id="password"
                             value={password}
                             onChange={handlePasswordChange}
-                            className={`w-full text-sm rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getPasswordStatus())}`}
+                            className={`w-full h-[55px] text-sm rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getPasswordStatus())}`}
                             placeholder="Password"
                             required
                         />
