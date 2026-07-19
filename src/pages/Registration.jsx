@@ -35,7 +35,6 @@ import { Link } from 'react-router-dom';
 import { MdArrowBackIosNew, MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 function Registration() {
-    // ১. সম্পূর্ণ ফর্মের জন্য একটি মাত্র অবজেক্ট স্টেট
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -46,20 +45,15 @@ function Registration() {
         password: ''
     });
 
-    // এরর মেসেজ স্টোর করার জন্য স্টেট
     const [errors, setErrors] = useState({});
-    // পাসওয়ার্ড দেখানো বা লুকানোর জন্য স্টেট
     const [showPassword, setShowPassword] = useState(false);
 
-    // সাধারণ ইনপুট ফিল্ড এবং ড্রপডাউন হ্যান্ডলার
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-        // টাইপ বা সিলেক্ট করা মাত্রই ওই ফিল্ডের এরর মুছে যাবে
         setErrors(prev => ({ ...prev, [name]: '' }));
     };
 
-    // ডেট অফ বার্থ ড্রপডাউনগুলোর জন্য আলাদা হ্যান্ডলার
     const handleDobChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -69,7 +63,6 @@ function Registration() {
         setErrors(prev => ({ ...prev, dob: '' }));
     };
 
-    // ২. ফর্ম ভ্যালিডেশন লজিক
     const validateForm = () => {
         let tempErrors = {};
         let isValid = true;
@@ -80,7 +73,6 @@ function Registration() {
         if (!formData.gender) { tempErrors.gender = "Gender is required"; isValid = false; }
         if (!formData.bloodGroup) { tempErrors.bloodGroup = "Blood group is required"; isValid = false; }
         
-        // ইমেইল ভ্যালিডেশন (Regex সহ)
         if (!formData.email.trim()) { 
             tempErrors.email = "Email address is required"; 
             isValid = false; 
@@ -89,7 +81,6 @@ function Registration() {
             isValid = false;
         }
 
-        // পাসওয়ার্ড ভ্যালিডেশন (মিনিমাম ৬ ক্যারেক্টার)
         if (!formData.password) { 
             tempErrors.password = "Password is required"; 
             isValid = false; 
@@ -102,36 +93,31 @@ function Registration() {
         return isValid;
     };
 
-    // ফর্ম সাবমিট হ্যান্ডলার
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
-            // ব্যাকএন্ডে পাঠানোর জন্য ডেট অবজেক্টকে স্ট্রিং বানিয়ে নেওয়া
             const finalData = {
                 ...formData,
                 dateOfBirth: `${formData.dob.year}-${formData.dob.month}-${formData.dob.day}`
             };
             console.log("Registration Successful:", finalData);
-            // এখানে আপনার API Call (Axios / Fetch) করতে পারেন
         }
     };
 
-    // লুপ ঘুরিয়ে দিন এবং বছরের ডেটা জেনারেট করার জন্য হেল্পার অ্যারে
+
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: 80 }, (_, i) => currentYear - i); // গত ৮০ বছরের লিস্ট
+    const years = Array.from({ length: 80 }, (_, i) => currentYear - i); 
     const bloodGroups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
 
     return (
         <Container>
             <div id="registrationWrapper" className='flex flex-col justify-center items-center pt-10 pb-20'>
-                {/* ব্যাক বাটন */}
                 <Link to="/login" className='w-full max-w-lg mb-4'>
                     <MdArrowBackIosNew className='size-6 text-gray bg-gray-100 hover:bg-gray-200 rounded-full h-8 w-8 p-1.5' />
                 </Link>
 
-                {/* হেডার টেক্সট */}
                 <div className='w-full max-w-lg text-left mb-6'>
                     <p className='text-[36px] font-semibold font-primary mt-4 leading-tight'>
                         Join <span className='text-primary text-red-600'>QuickBlood</span> as a Donor
@@ -141,10 +127,8 @@ function Registration() {
                     </p>
                 </div>
 
-                {/* ৩. রেজিস্ট্রেশন ফর্ম */}
                 <form onSubmit={handleSubmit} className='w-full max-w-lg flex flex-col gap-4'>
                     
-                    {/* First Name & Last Name */}
                     <div className='flex gap-4 w-full'>
                         <div className='w-1/2 flex flex-col'>
                             <input 
@@ -164,7 +148,6 @@ function Registration() {
                         </div>
                     </div>
 
-                    {/* Date of Birth Dropdowns */}
                     <div className='flex flex-col'>
                         <label className='text-sm text-gray-600 font-medium mb-1'>Date of Birth</label>
                         <div className='flex gap-2 w-full'>
@@ -184,7 +167,6 @@ function Registration() {
                         {errors.dob && <span className='text-red-500 text-xs mt-1'>{errors.dob}</span>}
                     </div>
 
-                    {/* Gender & Blood Group */}
                     <div className='flex gap-4 w-full'>
                         <div className='w-1/2 flex flex-col'>
                             <label className='text-sm text-gray-600 font-medium mb-1'>Gender</label>
@@ -206,7 +188,6 @@ function Registration() {
                         </div>
                     </div>
 
-                    {/* Email Address */}
                     <div className='flex flex-col'>
                         <input 
                             type="email" name="email" placeholder="Email address" 
@@ -216,7 +197,6 @@ function Registration() {
                         {errors.email && <span className='text-red-500 text-xs mt-1'>{errors.email}</span>}
                     </div>
 
-                    {/* Password Field with Show/Hide eye icon */}
                     <div className='flex flex-col relative'>
                         <input 
                             type={showPassword ? "text" : "password"} name="password" placeholder="Password" 
@@ -232,7 +212,6 @@ function Registration() {
                         {errors.password && <span className='text-red-500 text-xs mt-1'>{errors.password}</span>}
                     </div>
 
-                    {/* ৪. রেজিস্ট্রেশন সাবমিট বাটন */}
                     <button 
                         type="submit" 
                         className='bg-red-600 text-white font-semibold p-3.5 rounded-xl hover:bg-red-700 transition-colors w-full mt-4 text-lg shadow-md'
