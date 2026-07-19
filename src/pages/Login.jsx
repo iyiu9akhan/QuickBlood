@@ -84,11 +84,9 @@ function Login() {
                     <div className='font-secondary capitalize text-[54px] font-bold text-brand'>
                         <p>every donor </p>
                         <p>saves lives ;</p>
-                        {/* <p> </p> */}
                     </div>
-
                 </div>
-                <img src={login_img} alt="login_img" className='w-[900px]' />
+                <img src={login_img} alt="login_img" className='w-225' />
             </div>
             <div className="loginRight w-1/3 flex flex-col px-13 justify-center">
                 <p className='font-primary font-bold text-[45px] capitalize mb-2  text-center'>share hope <span className='text-[#D12B05]'>&</span> save life</p>
@@ -104,7 +102,7 @@ function Login() {
                             id="email"
                             value={email}
                             onChange={handleEmailChange}
-                            className={`w-full h-[55px] font-secondary rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getEmailStatus())}`}
+                            className={`w-full h-14 font-secondary rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getEmailStatus())}`}
                             placeholder="Email address"
                             required
                         />
@@ -133,7 +131,7 @@ function Login() {
                             id="password"
                             value={password}
                             onChange={handlePasswordChange}
-                            className={`w-full h-[55px] text-sm rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getPasswordStatus())}`}
+                            className={`w-full h-14 font-secondary rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getPasswordStatus())}`}
                             placeholder="Password"
                             required
                         />
@@ -174,17 +172,28 @@ function Login() {
 
                     <button
                         type="submit"
-                        className="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4  shadow-xs font-medium leading-5 rounded-base text-[16px] px-4 py-2.5 focus:outline-none w-full cursor-pointer"
+                        className="text-white font-secondary bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4  shadow-xs font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 focus:outline-none w-full cursor-pointer"
                     >
                         Login
                     </button>
-
                     {/* {formSuccess && (
                         <div className="mb-5 p-3 rounded-base bg-success-soft border border-success-subtle text-fg-success-strong text-sm">
                             <span className="font-medium">Success!</span> Form authenticated and terms accepted.
                         </div>
                     )} */}
                 </form>
+                <button
+                    type="submit"
+                    className="text-black font-secondary box-border border border-transparent hover:bg-gray-100 focus:ring-4 font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 mt-3 focus:outline-none w-full cursor-pointer"
+                >
+                    Forgotten Password ?
+                </button>
+                <button
+                    type="submit"
+                    className="text-brand font-secondary box-border border border-1-brand hover:bg-gray-100 focus:ring-4 font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 mt-13 focus:outline-none w-full cursor-pointer"
+                >
+                    Create new account
+                </button>
             </div>
         </div>
     )
