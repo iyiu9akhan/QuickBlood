@@ -8,7 +8,9 @@
 @source "../node_modules/flowbite";
 
 @theme {
-  --color-primary: #800e13;
+  /* --color-primary: #800e13; */
+  --color-primary: #D12B05;
+  --color-gray : #364153;
 
   --font-primary: "Quicksand", sans-serif;
   --font-secondary: "Google Sans Flex", sans-serif;
