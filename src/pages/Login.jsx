@@ -2,6 +2,7 @@ import React, { useState, useTransition } from 'react'
 import Container from "../components/Layout/Container"
 import login_img from "../assets/login/login_img.png"
 import { Link } from 'react-router-dom';
+import { MdArrowBackIosNew, MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 function Login() {
 
@@ -11,6 +12,8 @@ function Login() {
 
     const [emailClicked, setEmailClicked] = useState(false);
     const [passwordClicked, setPasswordClicked] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
     const [submitAttempted, setSubmitAttempted] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
 
@@ -81,7 +84,7 @@ function Login() {
 
             <div className="loginLeft w-2/3 border-r-2 border-gray-200 flex items-center justify-between">
                 <div className='h-screen flex flex-col justify-between py-15 pl-15'>
-                    <p className='font-primary font-bold text-[65px] text-[#D12B05]'>QuickBlood</p>
+                    <p className='font-primary font-bold text-[65px] text-primary'>QuickBlood</p>
                     <div className='font-secondary capitalize text-[54px] font-bold text-brand'>
                         <p>every donor </p>
                         <p>saves lives ;</p>
@@ -90,7 +93,7 @@ function Login() {
                 <img src={login_img} alt="login_img" className='w-225' />
             </div>
             <div className="loginRight w-1/3 flex flex-col px-13 justify-center">
-                <p className='font-primary font-bold text-[45px] capitalize mb-2  text-center'>share hope <span className='text-[#D12B05]'>&</span> save life</p>
+                <p className='font-primary font-bold text-[45px] capitalize mb-2  text-center'>share hope <span className='text-primary'>&</span> save life</p>
                 <p className='font-secondary text-[16px] mb-9 text-center'>Step forward today to support our growing network of donors. A little warmth from your heart can light up someone's entire world.</p>
                 <form onSubmit={handleSubmit} noValidate>
 
@@ -127,15 +130,23 @@ function Login() {
                         <label htmlFor="password" className={`block mb-2.5 text-sm font-medium ${getLabelClass(getPasswordStatus())}`}>
                             Your password
                         </label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            className={`w-full h-14 font-secondary rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getPasswordStatus())}`}
-                            placeholder="Password"
-                            required
-                        />
+                        <div className='flex flex-col relative'>
+                            <input
+                                type={showPassword ? "text" : "password"} name="password"
+                                id="password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                className={`w-full h-14 font-secondary rounded-base block px-3 py-2.5 shadow-xs border hover:border-brand ${getInputClass(getPasswordStatus())}`}
+                                placeholder="Password"
+                                required
+                            />
+                            <div
+                                className='absolute right-4 top-4 text-xl cursor-pointer text-gray-500'
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
+                            </div>
+                        </div>
 
                         {/* error / success msg  */}
 

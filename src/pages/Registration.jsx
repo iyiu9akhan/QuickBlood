@@ -120,7 +120,7 @@ function Registration() {
 
                 <div className='w-full max-w-lg text-left mb-6'>
                     <p className='text-[36px] font-semibold font-primary mt-4 leading-tight'>
-                        Join <span className='text-primary text-red-600'>QuickBlood</span> as a Donor
+                        Join <span className='text-primary '>QuickBlood</span> as a Donor
                     </p>
                     <p className='font-secondary text-[15px] text-gray-500 mt-2'>
                         Become a verified donor or find blood matches instantly during emergencies. Your small step can bring hope to someone's family.
