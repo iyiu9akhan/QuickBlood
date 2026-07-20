@@ -8,13 +8,13 @@ function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [agree, setAgree] = useState('');
+    // const [agree, setAgree] = useState('');
 
     const [emailClicked, setEmailClicked] = useState(false);
     const [passwordClicked, setPasswordClicked] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-    const [submitAttempted, setSubmitAttempted] = useState(false);
+    // const [submitAttempted, setSubmitAttempted] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
 
     const isEmailValid = email.includes('@gmail.com');
@@ -126,7 +126,7 @@ function Login() {
 
                     </div>
 
-                    <div className="mb-5 ">
+                    <div className="mb-10">
                         <label htmlFor="password" className={`block mb-2.5 text-sm font-medium ${getLabelClass(getPasswordStatus())}`}>
                             Your password
                         </label>
@@ -161,7 +161,7 @@ function Login() {
 
                         {/* error / success msg  */}
                     </div>
-
+{/* 
                     <div className="mb-6 h-10 mt-10">
                         <label htmlFor="remember" className="flex items-center cursor-pointer">
                             <input
@@ -180,7 +180,7 @@ function Login() {
                                 * Accept terms to proceed.
                             </p>
                         )}
-                    </div>
+                    </div> */}
 
                     <button
                         type="submit"
