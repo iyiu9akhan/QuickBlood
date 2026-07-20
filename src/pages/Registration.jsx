@@ -132,7 +132,7 @@ function Registration() {
                     <p className='text-[36px] font-semibold font-primary mt-4 leading-tight'>
                         Join <span className='text-primary '>QuickBlood</span> as a Donor
                     </p>
-                    <p className='font-secondary text-[15px] text-gray-500 mt-2'>
+                    <p className='font-secondary text-[15px] text-gray mt-2'>
                         Become a verified donor or find blood matches instantly during emergencies. Your small step can bring hope to someone's family.
                     </p>
                 </div>
@@ -207,6 +207,7 @@ function Registration() {
                             value={formData.email} onChange={handleChange}
                             className={`font-secondary border p-3 rounded-xl outline-none w-full ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                         />
+                        <p className='font-secondary mt-1.5 text-gray'>You may receive email verification and notifications from us.</p>
                         {errors.email && <span className='text-red-500 text-xs mt-1.5 font-secondary'>{errors.email}</span>}
                     </div>
 

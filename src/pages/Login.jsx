@@ -14,12 +14,12 @@ function Login() {
     const [passwordClicked, setPasswordClicked] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-    // const [submitAttempted, setSubmitAttempted] = useState(false);
+    const [submitAttempted, setSubmitAttempted] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
 
     const isEmailValid = email.includes('@gmail.com');
     const isPasswordValid = password.length >= 6;
-    const isFormValid = isEmailValid && isPasswordValid && agree;
+    const isFormValid = isEmailValid && isPasswordValid;
 
     const getEmailStatus = () => {
         if (!emailClicked) return "normal";
@@ -51,10 +51,10 @@ function Login() {
 
         if (isFormValid) {
             setFormSuccess(true);
-            console.log("Form successfully logged in:", { email, password, agree });
+            console.log("Form successfully logged in:", { email, password });
             setEmail('');
             setPassword('');
-            setAgree(false);
+            // setAgree(false);
             setEmailClicked(false);
             setPasswordClicked(false);
             setSubmitAttempted(false);
