@@ -27,6 +27,7 @@
 // }
 
 // export default Registration
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 import React, { useState } from 'react';
@@ -35,6 +36,7 @@ import { Link } from 'react-router-dom';
 import { MdArrowBackIosNew, MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 function Registration() {
+    const auth = getAuth();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -44,6 +46,16 @@ function Registration() {
         email: '',
         password: ''
     });
+
+    const initialFormState = {
+        firstName: '',
+        lastName: '',
+        dob: { day: '', month: '', year: '' },
+        gender: '',
+        bloodGroup: '',
+        email: '',
+        password: ''
+    };
 
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
@@ -102,17 +114,62 @@ function Registration() {
         return isValid;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setSubmitAttempted(true);
-        if (validateForm()) {
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     setSubmitAttempted(true);
+    //     if (validateForm()) {
+    //         createUserWithEmailAndPassword(auth , email, password)
+    //         const finalData = {
+    //             ...formData,
+    //             dateOfBirth: `${formData.dob.year}-${formData.dob.month}-${formData.dob.day}`
+    //         };
+    //         console.log("Registration Successful:", finalData);
+    //         setFormData(initialFormState);
+    //         setAgree(false);
+    //         setErrors({});
+    //         setSubmitAttempted(false);
+    //     }
+    // };
+
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitAttempted(true);
+
+    if (validateForm()) {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+                auth, 
+                formData.email, 
+                formData.password
+            );
+            
+            const user = userCredential.user;
+            console.log("Firebase Auth Successful for User:", user.uid);
+
             const finalData = {
                 ...formData,
                 dateOfBirth: `${formData.dob.year}-${formData.dob.month}-${formData.dob.day}`
             };
             console.log("Registration Successful:", finalData);
+
+            setFormData(initialFormState);
+            setAgree(false);
+            setErrors({});
+            setSubmitAttempted(false);
+
+        } catch (error) {
+            console.error("Firebase Auth Error:", error.message);
+            
+            if (error.code === 'auth/email-already-in-use') {
+                setErrors(prev => ({ ...prev, email: "Email is already registered." }));
+            } else if (error.code === 'auth/weak-password') {
+                setErrors(prev => ({ ...prev, password: "Password should be stronger." }));
+            } else {
+                setErrors(prev => ({ ...prev, email: error.message }));
+            }
         }
-    };
+    }
+};
 
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);

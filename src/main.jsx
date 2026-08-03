@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import './App.css';
 // import "tailwindcss";
+import firebaseConfig from './components/Layout/Authentication/firebaseConfig.js';
 
 
 createRoot(document.getElementById('root')).render(
