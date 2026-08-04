@@ -9,6 +9,7 @@ function home() {
     const navigate = useNavigate()
     const data = useSelector(state => state.userInfo.value)
     const [verify, setVerify] = useState(false)
+    const [loading, setLoading] = useState(true)
     console.log(data, "data")
 
     useEffect(() => {
@@ -17,12 +18,19 @@ function home() {
         }
     }, [])
 
+
+    
     onAuthStateChanged(auth, (user) => {
         console.log(user, "home user")
         if (user.emailVerified) {
             setVerify(true)
         }
+        setLoading(false)
     });
+    
+    if (loading) {
+        return null
+    }
 
     return (
         <>
