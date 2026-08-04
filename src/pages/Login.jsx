@@ -1,13 +1,18 @@
 import React, { useState, useTransition } from 'react'
 import Container from "../components/Layout/Container"
 import login_img from "../assets/login/login_img.png"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdArrowBackIosNew, MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { userLoginData } from '../slice/userSlice';
 
 function Login() {
-
+    const auth = getAuth();
+    const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch()
     // const [agree, setAgree] = useState('');
 
     const [emailClicked, setEmailClicked] = useState(false);
@@ -50,6 +55,25 @@ function Login() {
         setPasswordClicked(true);
 
         if (isFormValid) {
+            signInWithEmailAndPassword(auth, email, password)
+                .then((user) => {
+
+                    dispatch(userLoginData(user))
+                    localStorage.setItem("userLoginData", JSON.stringify(user))
+
+                    console.log(user)
+                    setTimeout(() => {
+                        navigate("/home")
+                    },1500)
+                })
+                .catch((error) => {
+                    const errMsg = error.code;
+                    console.log(errMsg)
+                    if (errMsg.includes("auth/invalid-credential")) {
+                        console.log("Please check your info")
+                    }
+                });
+
             setFormSuccess(true);
             console.log("Form successfully logged in:", { email, password });
             setEmail('');
@@ -161,7 +185,7 @@ function Login() {
 
                         {/* error / success msg  */}
                     </div>
-{/* 
+                    {/* 
                     <div className="mb-6 h-10 mt-10">
                         <label htmlFor="remember" className="flex items-center cursor-pointer">
                             <input

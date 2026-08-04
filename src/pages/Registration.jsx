@@ -27,16 +27,18 @@
 // }
 
 // export default Registration
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import React, { useState } from 'react';
 import Container from '../components/Layout/Container';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { MdArrowBackIosNew, MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
+import { ThreeDots } from "react-loader-spinner";
 
 function Registration() {
     const auth = getAuth();
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -61,6 +63,7 @@ function Registration() {
     const [showPassword, setShowPassword] = useState(false);
     const [submitAttempted, setSubmitAttempted] = useState(false);
     const [agree, setAgree] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -132,44 +135,52 @@ function Registration() {
     // };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitAttempted(true);
+        e.preventDefault();
+        setSubmitAttempted(true);
 
-    if (validateForm()) {
-        try {
-            const userCredential = await createUserWithEmailAndPassword(
-                auth, 
-                formData.email, 
-                formData.password
-            );
-            
-            const user = userCredential.user;
-            console.log("Firebase Auth Successful for User:", user.uid);
+        if (validateForm()) {
+            setLoading(true)
+            try {
+                const userCredential = await createUserWithEmailAndPassword(
+                    auth,
+                    formData.email,
+                    formData.password
+                );
 
-            const finalData = {
-                ...formData,
-                dateOfBirth: `${formData.dob.year}-${formData.dob.month}-${formData.dob.day}`
-            };
-            console.log("Registration Successful:", finalData);
+                const user = userCredential.user;
+                await sendEmailVerification(user);
+                console.log("Verification email sent!");
+                console.log("Firebase Auth Successful for User:", user.uid);
 
-            setFormData(initialFormState);
-            setAgree(false);
-            setErrors({});
-            setSubmitAttempted(false);
+                const finalData = {
+                    ...formData,
+                    dateOfBirth: `${formData.dob.year}-${formData.dob.month}-${formData.dob.day}`
+                };
+                console.log("Registration Successful:", finalData);
 
-        } catch (error) {
-            console.error("Firebase Auth Error:", error.message);
-            
-            if (error.code === 'auth/email-already-in-use') {
-                setErrors(prev => ({ ...prev, email: "Email is already registered." }));
-            } else if (error.code === 'auth/weak-password') {
-                setErrors(prev => ({ ...prev, password: "Password should be stronger." }));
-            } else {
-                setErrors(prev => ({ ...prev, email: error.message }));
+                setLoading(false)
+                setTimeout(() => {
+                    navigate("/login")
+                }, 1000)
+                setFormData(initialFormState);
+                setAgree(false);
+                setErrors({});
+                setSubmitAttempted(false);
+
+            } catch (error) {
+                setLoading(false)
+                console.error("Firebase Auth Error:", error.message);
+
+                if (error.code === 'auth/email-already-in-use') {
+                    setErrors(prev => ({ ...prev, email: "Email is already registered." }));
+                } else if (error.code === 'auth/weak-password') {
+                    setErrors(prev => ({ ...prev, password: "Password should be stronger." }));
+                } else {
+                    setErrors(prev => ({ ...prev, email: error.message }));
+                }
             }
         }
-    }
-};
+    };
 
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -308,12 +319,31 @@ function Registration() {
                             </p>
                         )}
                     </div>
-                    <button
-                        type="submit"
-                        className='bg-brand font-secondary text-white font-semibold p-3.5 rounded-xl hover:bg-brand-strong transition-colors w-full text-lg shadow-md'
-                    >
-                        Sign Up
-                    </button>
+
+                    {
+                        loading ?
+                            <div className="flex justify-center items-center w-full h-14">
+                                <ThreeDots
+                                    visible={true}
+                                    height="50"
+                                    width="50"
+                                    color="#193CB8"
+                                    // color="bg-brand"
+                                    radius="9"
+                                    ariaLabel="three-dots-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass=""
+                                />
+                            </div>
+                            :
+                            <button
+                                type="submit"
+                                className='bg-brand font-secondary text-white font-semibold p-3.5 rounded-xl hover:bg-brand-strong transition-colors w-full text-lg shadow-md'
+                            >
+                                Sign Up
+                            </button>
+                    }
+
 
                 </form>
             </div>
