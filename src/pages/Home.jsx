@@ -18,8 +18,6 @@ function home() {
         }
     }, [])
 
-
-    
     onAuthStateChanged(auth, (user) => {
         console.log(user, "home user")
         if (user.emailVerified) {
@@ -27,7 +25,7 @@ function home() {
         }
         setLoading(false)
     });
-    
+
     if (loading) {
         return null
     }
