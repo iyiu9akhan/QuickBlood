@@ -113,18 +113,18 @@ function Login() {
     return (
         <div className="loginWrapper flex flex-col md:flex-row w-full h-screen">
             <div className="loginLeft md:w-2/3 md:border-r-2 border-gray-200 flex flex-col px-6 md:flex-row md:items-center justify-between">
-                <div className='md:h-screen flex md:flex-col justify-between md:py-15 md:pl-15'>
-                    <p className='font-primary font-bold text-[25px] md:text-[65px] text-primary'>QuickBlood</p>
+                <div className='md:h-screen flex md:flex-col justify-center md:justify-between md:py-15 md:pl-15'>
+                    <p className='font-primary font-bold text-[50px] md:text-[65px] my-2 md:my-0 text-primary'>QuickBlood</p>
                     <div className='font-secondary capitalize text-[20px] md:text-[54px] font-bold text-brand hidden md:block'>
                         <p>every donor </p>
                         <p>saves lives ;</p>
                     </div>
                 </div>
-                <img src={login_img} alt="login_img" className='w-225 hidden md:block' />
+                <img src={login_img} alt="login_img" className='w-50 md:w-225 hidden md:block' />
             </div>
             <div className="loginRight md:w-1/3 flex flex-col px-6 pb-6 md:px-13 md:pb-0 justify-center">
-                <p className='font-primary font-bold text-[30px] md:text-[45px] capitalize mb-2  text-center'>share hope <span className='text-primary'>&</span> save life</p>
-                <p className='font-secondary text-[13px] md:text-[16px] mb-9 text-center'>Step forward today to support our growing network of donors. A little warmth from your heart can light up someone's entire world.</p>
+                <p className='font-primary font-bold text-[30px] md:text-[45px] capitalize mb-2 mt-3 md:mt-0 text-center'>share hope <span className='text-primary'>&</span> save life</p>
+                <p className='font-secondary text-[13px] md:text-[16px] mb-5 md:mb-9 text-center'>Step forward today to support our growing network of donors. A little warmth from your heart can light up someone's entire world.</p>
                 <form onSubmit={handleSubmit} noValidate>
 
                     <div className="mb-5">
@@ -232,7 +232,7 @@ function Login() {
                 </button>
                 <Link
                     to="/registration"
-                    className="text-brand text-center font-secondary box-border border border-1-brand hover:bg-gray-100 focus:ring-4 font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 mt-9 md:mt-13 focus:outline-none w-full cursor-pointer"
+                    className="text-brand text-center font-secondary box-border border border-1-brand hover:bg-gray-100 focus:ring-4 font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 mt-6 md:mt-13 focus:outline-none w-full cursor-pointer"
                 >
                     Create new account
                 </Link>
