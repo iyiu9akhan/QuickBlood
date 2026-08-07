@@ -2,7 +2,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-// import { Navigate } from 'react-router-dom'
+import Container from "../components/Layout/Container"
+
 
 function home() {
     const auth = getAuth();
@@ -32,12 +33,14 @@ function home() {
 
     return (
         <>
-            {
-                verify ?
-                    <div>Lorem ipsum dolor sit amet.</div>
-                    :
-                    <p>verify ur gmail</p>
-            }
+            <Container>
+                {
+                    verify ?
+                        <div>Lorem ipsum dolor sit amet.</div>
+                        : 
+                        <p>verify ur gmail</p>
+                }
+            </Container>
         </>
     )
 }

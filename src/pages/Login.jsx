@@ -18,7 +18,6 @@ function Login() {
     const [emailClicked, setEmailClicked] = useState(false);
     const [passwordClicked, setPasswordClicked] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-
     const [submitAttempted, setSubmitAttempted] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
 
@@ -57,14 +56,12 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitAttempted(true);
-
         setEmailClicked(true);
         setPasswordClicked(true);
 
         if (isFormValid) {
             signInWithEmailAndPassword(auth, email, password)
                 .then((user) => {
-
                     dispatch(userLoginData(user))
                     localStorage.setItem("userLoginData", JSON.stringify(user))
 
