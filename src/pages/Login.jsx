@@ -29,7 +29,7 @@ function Login() {
         }
     }, [navigate]);
 
-    const isEmailValid = email.includes('@gmail.com');
+    const isEmailValid = email.includes('@');
     const isPasswordValid = password.length >= 6;
     const isFormValid = isEmailValid && isPasswordValid;
 
@@ -232,7 +232,7 @@ function Login() {
                 </button>
                 <Link
                     to="/registration"
-                    className="text-brand text-center font-secondary box-border border border-1-brand hover:bg-gray-100 focus:ring-4 font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 mt-6 md:mt-13 focus:outline-none w-full cursor-pointer"
+                    className="text-brand text-center font-secondary box-border border border-1-brand hover:bg-gray-100 focus:bg-brand focus:text-white font-medium leading-5 rounded-full text-[16px] px-4 py-2.5 mt-6 md:mt-13 focus:outline-none w-full cursor-pointer"
                 >
                     Create new account
                 </Link>

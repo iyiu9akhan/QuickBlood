@@ -182,7 +182,6 @@ function Registration() {
         }
     };
 
-
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const currentYear = new Date().getFullYear();
@@ -191,7 +190,7 @@ function Registration() {
 
     return (
         <Container>
-            <div id="registrationWrapper" className='flex flex-col justify-center items-center pt-10 pb-20'>
+            <div id="registrationWrapper" className='flex flex-col justify-center items-center pt-6 md:pt-10 pb-6 md:pb-20 px-6 md:px-0'>
                 <Link to="/login" className='w-full max-w-lg mb-4'>
                     <MdArrowBackIosNew className='size-6 text-gray bg-gray-100 hover:bg-gray-200 rounded-full h-8 w-8 p-1.5' />
                 </Link>
