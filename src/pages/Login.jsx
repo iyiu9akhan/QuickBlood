@@ -128,7 +128,7 @@ function Login() {
                         <label htmlFor="email" className={`block mb-2.5 text-sm font-medium ${getLabelClass(getEmailStatus())}`}>
                             Your Email
                         </label>
-                        <input
+                        <input 
                             type="email"
                             id="email"
                             value={email}

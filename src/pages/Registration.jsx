@@ -27,18 +27,18 @@
 // }
 
 // export default Registration
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
+// import { useNavigate } from "react-router-dom";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/Layout/Container';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdArrowBackIosNew, MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { ThreeDots } from "react-loader-spinner";
 
 function Registration() {
     const auth = getAuth();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -63,7 +63,17 @@ function Registration() {
     const [showPassword, setShowPassword] = useState(false);
     const [submitAttempted, setSubmitAttempted] = useState(false);
     const [agree, setAgree] = useState(false);
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const [loading , setLoading] = useState(false);
+
+
+    useEffect(() => {
+        const localData = localStorage.getItem("userLoginData");
+        if (localData) {
+            navigate("/home", { replace: true });
+        }
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -84,6 +94,19 @@ function Registration() {
         setAgree(e.target.checked);
         setErrors(prev => ({ ...prev, agree: '' }));
     };
+
+    onAuthStateChanged(auth, (user) => {
+        if(user){
+            navigate("/")
+        }
+        setLoading(false)
+    });
+  
+    if (loading) {
+        return null 
+    }
+
+
     const validateForm = () => {
         let tempErrors = {};
         let isValid = true;
@@ -139,7 +162,7 @@ function Registration() {
         setSubmitAttempted(true);
 
         if (validateForm()) {
-            setLoading(true)
+            setBtnLoading(true)
             try {
                 const userCredential = await createUserWithEmailAndPassword(
                     auth,
