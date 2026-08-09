@@ -65,15 +65,21 @@ function Registration() {
     const [agree, setAgree] = useState(false);
     // const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const [loading , setLoading] = useState(false);
-
+    const [loading, setLoading] = useState(true);
+    const [btnLoading, setBtnLoading] = useState(false);
 
     useEffect(() => {
         const localData = localStorage.getItem("userLoginData");
         if (localData) {
             navigate("/home", { replace: true });
+        }else{
+            setLoading(false)
         }
     }, [navigate]);
+
+    if (loading) {
+        return null;
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -95,16 +101,7 @@ function Registration() {
         setErrors(prev => ({ ...prev, agree: '' }));
     };
 
-    onAuthStateChanged(auth, (user) => {
-        if(user){
-            navigate("/")
-        }
-        setLoading(false)
-    });
-  
-    if (loading) {
-        return null 
-    }
+ 
 
 
     const validateForm = () => {
@@ -181,7 +178,7 @@ function Registration() {
                 };
                 console.log("Registration Successful:", finalData);
 
-                setLoading(false)
+                setBtnLoading(false)
                 setTimeout(() => {
                     navigate("/login")
                 }, 1000)
@@ -191,7 +188,7 @@ function Registration() {
                 setSubmitAttempted(false);
 
             } catch (error) {
-                setLoading(false)
+                setBtnLoading(false)
                 console.error("Firebase Auth Error:", error.message);
 
                 if (error.code === 'auth/email-already-in-use') {
@@ -343,7 +340,7 @@ function Registration() {
                     </div>
 
                     {
-                        loading ?
+                        btnLoading ?
                             <div className="flex justify-center items-center w-full h-14">
                                 <ThreeDots
                                     visible={true}

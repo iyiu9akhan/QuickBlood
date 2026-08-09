@@ -63,14 +63,16 @@ function home() {
                                         radius="9"
                                         ariaLabel="three-dots-loading"
                                     />
-                                ) : (
-                                    <button
-                                        onClick={handleRefresh}
-                                        className="text-white text-center font-secondary border border-brand bg-brand font-medium rounded-full text-[16px] md:px-16 py-2.5 w-full md:w-auto cursor-pointer transition duration-200"
-                                    >
-                                        Refresh
-                                    </button>
-                                )}
+                                )
+                                    :
+                                    (
+                                        <button
+                                            onClick={handleRefresh}
+                                            className="text-white text-center font-secondary border border-brand bg-brand font-medium rounded-full text-[16px] md:px-16 py-2.5 w-full md:w-auto cursor-pointer transition duration-200"
+                                        >
+                                            Refresh
+                                        </button>
+                                    )}
                             </div>
 
                             <p className='font-secondary text-[14px] md:text-[16px] max-w-120 mt-3'>Already verified? Click Refresh to access your dashboard. Otherwise, check your email inbox.</p>
