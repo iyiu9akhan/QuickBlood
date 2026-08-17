@@ -46,7 +46,7 @@ function home() {
             <Container>
                 {
                     verify ?
-                        <div>
+                        <div className="">
                             <SideBar />
                         </div>
                         :

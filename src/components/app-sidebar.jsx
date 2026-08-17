@@ -172,8 +172,8 @@ export function AppSidebar({
                 <TerminalIcon className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-lg leading-tight">
-                <span className="truncate font-medium text-[#d12b05]">QuickBlood</span>
-                <span className="truncate text-xs">share hope & save life</span>
+                <span className="truncate font-medium">QuickBlood</span>
+                <span className="truncate text-xs font-light">share hope & save life</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
