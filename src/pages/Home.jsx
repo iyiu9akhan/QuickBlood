@@ -2,11 +2,11 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-// import Container from "../components/Layout/Container"
 import { Link } from 'react-router-dom';
 import verify_mail from "../assets/verify-mail.png"
 import { ThreeDots } from 'react-loader-spinner'
 import SideBar from "../components/Layout/SideBar"
+import Container from '@/components/Layout/Container';
 
 
 function home() {
@@ -46,9 +46,11 @@ function home() {
             {/* <Container> */}
                 {
                     verify ?
+                   <Container>
                         <div className="">
                             <SideBar />
                         </div>
+                     </Container> 
                         :
                         <div className="flex flex-col w-full min-h-screen items-center justify-center text-center px-6">
                             <img src={verify_mail} alt="verify_mail" className='w-60 md:w-90' />
