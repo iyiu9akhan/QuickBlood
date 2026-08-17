@@ -2,7 +2,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Container from "../components/Layout/Container"
+// import Container from "../components/Layout/Container"
 import { Link } from 'react-router-dom';
 import verify_mail from "../assets/verify-mail.png"
 import { ThreeDots } from 'react-loader-spinner'
@@ -43,7 +43,7 @@ function home() {
     }
     return (
         <>
-            <Container>
+            {/* <Container> */}
                 {
                     verify ?
                         <div className="">
@@ -89,7 +89,7 @@ function home() {
                         </div>
 
                 }
-            </Container>
+            {/* </Container> */}
         </>
     )
 }
